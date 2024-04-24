@@ -1,0 +1,31 @@
+---
+- name: Upgrade Python to specific version on RHEL
+  hosts: all
+  become: true  # Use sudo to gain root privileges
+  tasks:
+    - name: Check the current version of Python
+      ansible.builtin.command: python3 --version
+      register: python_version
+      changed_when: false
+      failed_when: false
+
+    - name: Display the current Python version
+      ansible.builtin.debug:
+        msg: "The current version of Python is {{ python_version.stdout }}"
+
+    - name: Install specific version of Python
+      ansible.builtin.dnf:
+        name: python39-3.9.18-1.el9_3.1
+        state: present
+        update_cache: true
+      when: "'3.9.18-1.el9_3.1' not in python_version.stdout"
+
+    - name: Verify the installed Python version
+      ansible.builtin.command: python3 --version
+      register: new_python_version
+      changed_when: false
+      failed_when: "'3.9.18-1.el9_3.1' not in new_python_version.stdout"
+
+    - name: Display the new Python version
+      ansible.builtin.debug:
+        msg: "The upgraded version of Python is {{ new_python_version.stdout }}"
