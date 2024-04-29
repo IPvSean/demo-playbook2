@@ -35,4 +35,4 @@
       rescue:
         - name: Remove McNaughton-Defender
           ansible.builtin.debug:
-            - "Removed McNaughton-Defender.exe with prejudice"
+            msg: "Removed McNaughton-Defender.exe with prejudice"
