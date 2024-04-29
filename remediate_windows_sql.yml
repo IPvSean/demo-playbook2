@@ -1,0 +1,37 @@
+- name: Remediate Windows SQL
+  hosts: all
+  become: true  # Use sudo to gain root privileges
+  tasks:
+    - name: Check the SQL Server error logs to identify the root cause of the failure.
+      ansible.builtin.debug:
+        msg: "located in the SQL Server installation directory under the LOG"
+
+    - name: Verify Service Account Permissions
+      ansible.builtin.debug:
+        msg: "Ensure that the service account used by the SQL Server service has appropiate permissions"
+
+    - name: Check SQL Server Configuration Manager
+      ansible.builtin.debug:
+        msg: "Use SQL Server Configuration Manager to review the configuration settings of the SQL Server service. Ensure that the settings, such as the SQL Server instance name,"
+
+    - name: Verify System Resources
+      ansible.builtin.debug:
+        msg:
+          - "Sufficient system resources are available"
+          - "Disk space is sufficient, 2000 MB free, 500 MB required"
+          - "Memory is sufficient, 16 GB is free, 4 GB required"
+          - "CPU tempreatures at normal limits"
+          - "100% of fans are working and responding to commands"
+
+    - name: Check and remove antivirus or firewall settings that don't match policy
+      block:
+        - name: Check for Antivirus
+          failed_when: true
+          ansible.builtin.debug:
+            msg:
+              - "Software found that is out of compliance"
+              - "McNaughton-Defender.exe found"
+              - "McNaughton-Defender.exe is OUT OF POLICY"
+        - name: Remove McNaughton-Defender.exe
+          ansible.builtin.debug:
+            - "Removed McNaughton-Defender.exe with prejudice"

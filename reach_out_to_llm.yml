@@ -1,0 +1,24 @@
+- name: Reach out to Ansible Lightspeed
+  hosts: all
+  become: true  # Use sudo to gain root privileges
+  vars:
+    check_it:
+      - 1
+      - 2
+      - 3
+  tasks:
+    - name: API request outbound to LLM
+      ansible.builtin.debug:
+        msg:
+          - "Event ID 17113 in Windows typically indicates an issue with the SQL Server service failing to start. This error can occur due to various reasons, such as incorrect configuration settings, insufficient permissions, corruption of system files, or conflicts with other software."
+          - "Check Error Details: The first step is to examine the details provided with the Event ID 17113 error. This information can give you clues about what specifically went wrong during the SQL Server startup process."
+          - "Review SQL Server Error Logs: SQL Server maintains error logs that provide detailed information about the startup process and any encountered errors. Check the SQL Server error logs to identify the root cause of the failure. The error logs are typically located in the SQL Server installation directory under the 'Log'"
+
+    - name: Wait for response
+      ansible.builtin.debug:
+        msg: "Wait for LLM to respond"
+      loop: "{{ check_it }}"
+
+    - name: Generating Playbook, now sync Project
+      ansible.builtin.debug:
+        msg: "Ansible Playbook has been generated"
