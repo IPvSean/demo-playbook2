@@ -32,6 +32,7 @@
               - "Software found that is out of compliance"
               - "McNaughton-Defender.exe found"
               - "McNaughton-Defender.exe is OUT OF POLICY"
-        - name: Remove McNaughton-Defender.exe
+      rescue:
+        - name: Remove McNaughton-Defender
           ansible.builtin.debug:
             - "Removed McNaughton-Defender.exe with prejudice"
