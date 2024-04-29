@@ -1,5 +1,5 @@
 - name: Remediate Windows SQL
-  hosts: all
+  hosts: localhost
   become: true  # Use sudo to gain root privileges
   tasks:
     - name: Check the SQL Server error logs to identify the root cause of the failure.
